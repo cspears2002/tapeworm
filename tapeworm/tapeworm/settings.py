@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drawings',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,10 +60,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tapeworm',
-        'USER': 'christopherspears',
-        'PASSWORD': ,
-        'HOST':,
-        'PORT':,
+        'USER': os.environ['DB_USERNAME'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -84,3 +85,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Templates
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]

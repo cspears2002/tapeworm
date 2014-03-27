@@ -1,4 +1,7 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
+
+from drawings.forms import UserForm
 
 # Create your views here.
 
@@ -32,3 +35,28 @@ def register(request):
 
   context_dict = {'user_form': user_form, 'registered': registered}
   return render(request, 'drawings/register.html', context_dict)
+
+  def user_login(request):
+    if request.method == 'POST':
+      # Grab username and password from form
+      username = request.POST['username']
+      password = request.POST['password']
+
+      # Authenticate user
+      user = authenticate(username=username, password=password)
+
+      if user is not None:
+        if user.is_active:
+          login(request, user)
+          return HttpResponseRedirect('drawings/list.html')
+        else:
+          return HttpResponse('You account was disabled.')
+      else:
+        print "Invalid login details: {0}, {1}.".format(username, password)
+        return HttpResponse("Invalid login details")
+    else:
+      context_dict = {}
+      return render(request, 'drawings/login.html', context_dict)
+
+
+

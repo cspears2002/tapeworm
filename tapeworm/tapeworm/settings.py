@@ -103,3 +103,8 @@ STATICFILES_DIRS = (
 
 # Templates
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+# For gunicorn
+LOGGING = {
+    'version': 1,
+}
